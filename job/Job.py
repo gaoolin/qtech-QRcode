@@ -12,10 +12,15 @@ from core import comm
 from PIL import Image
 import time
 
+from utils.delFiles import DelFiles
+
 if __name__ == '__main__':
 
     t0 = time.time()
     i = 0
+
+    delFiles = DelFiles()
+    delFiles.del_files_with(endwith="png")
 
     img = Image.open("../template/template.png")
     imgCopy = img.copy()
@@ -30,10 +35,6 @@ if __name__ == '__main__':
 
         imgNewDes = comm.QrCode().mk_eq_des(row[1], genQrCode, qrSize)
 
-        # print(row[1][0], row[1][1], row[1][2])
-
-        # imgNewDes.show()
-
         imgCopy.paste(imgNewDes, (115, 170))
 
         imgCopy.save("../img/{a}.png".format(a=row[1][1]))
@@ -41,8 +42,6 @@ if __name__ == '__main__':
         print("{a}保存完毕。".format(a=row[1][1]))
 
         i = i + 1
-
-        # imgCopy.show()
 
     t1 = time.time()
 
